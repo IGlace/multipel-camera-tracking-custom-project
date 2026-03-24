@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcmt-platform"
+version = "0.1.0"
+description = "Unified multi-camera multi-target tracking platform"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "IGlace" }
+]
+dependencies = [
+  "PyYAML>=6.0",
+  "pydantic>=2.6",
+  "rich>=13.7",
+  "loguru>=0.7",
+  "networkx>=3.2",
+  "numpy>=1.26",
+  "opencv-python>=4.9",
+  "matplotlib>=3.8",
+  "jupyterlab>=4.1"
+]
+
+[project.optional-dependencies]
+dev = [
+  "black>=24.2",
+  "ruff>=0.3",
+  "ipykernel>=6.29"
+]
+ml = [
+  "torch",
+  "torchvision",
+  "dgl",
+  "ultralytics"
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["apps*", "mcmt_core*", "trainers*"]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
