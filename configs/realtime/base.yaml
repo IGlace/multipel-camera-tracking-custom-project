@@ -1,0 +1,9 @@
+system:
+  project_name: mcmt-platform
+  output_root: outputs/realtime
+  require_gpu: true
+
+logging:
+  verbosity: normal
+  log_to_file: true
+  log_filename: realtime_app.log
