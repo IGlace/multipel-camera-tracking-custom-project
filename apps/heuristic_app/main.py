@@ -20,9 +20,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     cfg = load_runtime_config(args.config, app_name="heuristic_app")
-    logger = build_logger(cfg.logging)
+    output_root = Path(cfg.system.output_root)
+    logger = build_logger(cfg.logging, output_root=output_root)
     logger.info("Initialized heuristic_app in %s mode", args.mode)
-    write_run_manifest(Path(cfg.system.output_root), cfg, app_name="heuristic_app", mode=args.mode)
+    write_run_manifest(output_root, cfg, app_name="heuristic_app", mode=args.mode)
     logger.info("Phase 1 scaffold only: matcher implementation begins in later commits.")
     return 0
 

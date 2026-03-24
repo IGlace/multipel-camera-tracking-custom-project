@@ -10,7 +10,7 @@ from rich.logging import RichHandler
 from mcmt_core.config.schema import LoggingConfig
 
 
-def build_logger(cfg: LoggingConfig) -> logging.Logger:
+def build_logger(cfg: LoggingConfig, output_root: Path | None = None) -> logging.Logger:
     logger = logging.getLogger("mcmt")
     level_map = {
         "quiet": logging.ERROR,
@@ -26,7 +26,8 @@ def build_logger(cfg: LoggingConfig) -> logging.Logger:
     logger.addHandler(console_handler)
 
     if cfg.log_to_file:
-        log_path = Path("outputs") / cfg.log_filename
+        base_dir = output_root if output_root is not None else Path("outputs")
+        log_path = base_dir / cfg.log_filename
         log_path.parent.mkdir(parents=True, exist_ok=True)
         file_handler = logging.FileHandler(log_path, encoding="utf-8")
         file_handler.setLevel(level_map[cfg.verbosity])

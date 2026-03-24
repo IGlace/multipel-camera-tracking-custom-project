@@ -2,9 +2,12 @@
 from .loader import load_runtime_config
 from .schema import (
     AttributesConfig,
+    DatasetConfig,
     DetectorConfig,
+    GraphModelConfig,
     LocalTrackerConfig,
     LoggingConfig,
+    OutputsConfig,
     ReIDConfig,
     RuntimeConfig,
     SegmentorConfig,
@@ -14,9 +17,12 @@ from .schema import (
 __all__ = [
     "load_runtime_config",
     "AttributesConfig",
+    "DatasetConfig",
     "DetectorConfig",
+    "GraphModelConfig",
     "LocalTrackerConfig",
     "LoggingConfig",
+    "OutputsConfig",
     "ReIDConfig",
     "RuntimeConfig",
     "SegmentorConfig",
