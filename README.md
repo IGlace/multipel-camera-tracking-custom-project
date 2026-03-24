@@ -12,6 +12,7 @@ Implemented foundation pieces:
 - shared config package scaffold
 - shared logging package scaffold
 - app and trainer entrypoint scaffolds
+- first typed interfaces for detector, segmentor, tracker, ReID, and attributes
 - experiment notebook layer bootstrap
 
 ## Planned top-level modules

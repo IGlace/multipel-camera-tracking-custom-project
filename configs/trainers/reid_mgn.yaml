@@ -7,3 +7,8 @@ logging:
   verbosity: normal
   log_to_file: true
   log_filename: trainer_reid_mgn.log
+
+reid:
+  backend: mgn
+  weights_path:
+  normalize_embeddings: true

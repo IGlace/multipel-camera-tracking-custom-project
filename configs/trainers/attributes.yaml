@@ -7,3 +7,8 @@ logging:
   verbosity: normal
   log_to_file: true
   log_filename: trainer_attributes.log
+
+attributes:
+  backend: person_attribute_recognition
+  weights_path:
+  attribute_names_path:

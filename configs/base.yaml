@@ -7,3 +7,31 @@ logging:
   verbosity: normal
   log_to_file: true
   log_filename: run.log
+
+detector:
+  backend: ultralytics
+  model: yolo11n.pt
+  confidence: 0.25
+  iou: 0.45
+
+segmentor:
+  backend: ultralytics
+  task: sam
+  model: sam_b.pt
+  confidence: 0.25
+  iou: 0.45
+
+local_tracker:
+  backend: ultralytics
+  tracker: botsort
+  tracker_config:
+
+reid:
+  backend: mgn
+  weights_path:
+  normalize_embeddings: true
+
+attributes:
+  backend: person_attribute_recognition
+  weights_path:
+  attribute_names_path:
