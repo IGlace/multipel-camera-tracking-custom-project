@@ -17,6 +17,7 @@ Implemented foundation pieces:
 - first runnable `rest_app` frame-graph direct-score baseline
 - first runnable `heuristic_app` frame-match baseline
 - first runnable `realtime_app` frame-runtime baseline for frame folders, a single video file, or a folder of videos
+- first runnable `realtime_app` tracklet-runtime baseline with Ultralytics local tracking and rolling tracklet summaries
 - shared MOT, annotated frame, annotated video, and live grid sinks
 
 ## Planned top-level modules

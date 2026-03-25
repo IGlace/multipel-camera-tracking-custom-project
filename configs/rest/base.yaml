@@ -13,6 +13,7 @@ dataset:
   root_dir: data
   camera_dirs: []
   image_extensions: [".jpg", ".jpeg", ".png", ".bmp", ".webp"]
+  video_extensions: [".mp4", ".avi", ".mov", ".mkv", ".webm"]
   sync_strategy: min_length
 
 detector:
@@ -43,13 +44,21 @@ attributes:
   weights_path:
   attribute_names_path:
 
+tracklet:
+  window_size: 15
+  min_length: 2
+  idle_tolerance: 1
+
 outputs:
   enable_mot: true
   enable_annotated_frames: true
   enable_annotated_video: false
+  enable_live_display: false
   mot_subdir: mot
   annotated_frames_subdir: annotated_frames
   annotated_video_subdir: annotated_videos
+  live_display_window_name: MCMT Live Grid
+  live_display_fullscreen: true
   video_fps: 20
 
 graph_model:
@@ -57,6 +66,11 @@ graph_model:
   spatial_edge_features:
     - center_similarity
     - iou
+    - confidence_similarity
+    - class_match
+    - area_ratio_similarity
+  temporal_edge_features:
+    - center_similarity
     - confidence_similarity
     - class_match
     - area_ratio_similarity

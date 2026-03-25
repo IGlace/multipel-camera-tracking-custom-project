@@ -62,6 +62,12 @@ class AttributesConfig(BaseModel):
     attribute_names_path: Path | None = None
 
 
+class TrackletConfig(BaseModel):
+    window_size: int = 15
+    min_length: int = 2
+    idle_tolerance: int = 1
+
+
 class OutputsConfig(BaseModel):
     enable_mot: bool = True
     enable_annotated_frames: bool = True
@@ -81,6 +87,14 @@ class GraphModelConfig(BaseModel):
         default_factory=lambda: [
             "center_similarity",
             "iou",
+            "confidence_similarity",
+            "class_match",
+            "area_ratio_similarity",
+        ]
+    )
+    temporal_edge_features: list[str] = Field(
+        default_factory=lambda: [
+            "center_similarity",
             "confidence_similarity",
             "class_match",
             "area_ratio_similarity",
@@ -109,6 +123,7 @@ class RuntimeConfig(BaseModel):
     local_tracker: LocalTrackerConfig = Field(default_factory=LocalTrackerConfig)
     reid: ReIDConfig = Field(default_factory=ReIDConfig)
     attributes: AttributesConfig = Field(default_factory=AttributesConfig)
+    tracklet: TrackletConfig = Field(default_factory=TrackletConfig)
     outputs: OutputsConfig = Field(default_factory=OutputsConfig)
     graph_model: GraphModelConfig = Field(default_factory=GraphModelConfig)
     config_path: Path | None = None

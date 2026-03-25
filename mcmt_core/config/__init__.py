@@ -12,6 +12,7 @@ from .schema import (
     RuntimeConfig,
     SegmentorConfig,
     SystemConfig,
+    TrackletConfig,
 )
 
 __all__ = [
@@ -27,4 +28,5 @@ __all__ = [
     "RuntimeConfig",
     "SegmentorConfig",
     "SystemConfig",
+    "TrackletConfig",
 ]

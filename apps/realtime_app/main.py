@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from apps.realtime_app.frame_graph_runtime.pipeline import run_realtime_frame_runtime_baseline
+from apps.realtime_app.tracklet_graph_runtime.pipeline import run_realtime_tracklet_runtime_baseline
 from mcmt_core.config.loader import load_runtime_config
 from mcmt_core.logging.setup import build_logger
 from mcmt_core.runtime.manifest import write_run_manifest
@@ -18,7 +19,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--pipeline",
         default="frame_runtime_baseline",
-        choices=["frame_runtime_baseline"],
+        choices=["frame_runtime_baseline", "tracklet_runtime_baseline"],
         help="Pipeline implementation to run for the current phase.",
     )
     return parser
@@ -34,6 +35,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.pipeline == "frame_runtime_baseline":
         run_realtime_frame_runtime_baseline(cfg, logger, mode=args.mode)
+        return 0
+    if args.pipeline == "tracklet_runtime_baseline":
+        run_realtime_tracklet_runtime_baseline(cfg, logger, mode=args.mode)
         return 0
 
     logger.info("This mode is scaffolded but not yet implemented in the current phase.")
