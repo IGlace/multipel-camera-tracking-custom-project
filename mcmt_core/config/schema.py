@@ -83,6 +83,32 @@ class OutputsConfig(BaseModel):
     video_fps: int = 20
 
 
+class MLPBlockConfig(BaseModel):
+    hidden_dims: list[int] = Field(default_factory=list)
+    output_dim: int = 64
+    activation: Literal["relu", "gelu", "silu", "leaky_relu", "tanh", "identity"] = "relu"
+    norm: Literal["none", "layernorm", "batchnorm"] = "none"
+    dropout: float = 0.0
+    residual: bool = False
+    activate_last: bool = False
+
+
+class DirectScorerConfig(MLPBlockConfig):
+    output_dim: int = 1
+    hidden_dims: list[int] = Field(default_factory=lambda: [64, 32])
+
+
+class GraphNeuralConfig(BaseModel):
+    aggregation: Literal["sum", "mean", "max"] = "sum"
+    hybrid_fusion_alpha: float = 0.5
+    node_encoder: MLPBlockConfig = Field(default_factory=lambda: MLPBlockConfig(output_dim=64, hidden_dims=[128]))
+    edge_encoder: MLPBlockConfig = Field(default_factory=lambda: MLPBlockConfig(output_dim=32, hidden_dims=[64]))
+    message_encoder: MLPBlockConfig = Field(default_factory=lambda: MLPBlockConfig(output_dim=64, hidden_dims=[128]))
+    node_updater: MLPBlockConfig = Field(default_factory=lambda: MLPBlockConfig(output_dim=64, hidden_dims=[128]))
+    edge_updater: MLPBlockConfig = Field(default_factory=lambda: MLPBlockConfig(output_dim=32, hidden_dims=[64]))
+    predictor: MLPBlockConfig = Field(default_factory=lambda: MLPBlockConfig(output_dim=1, hidden_dims=[32]))
+
+
 class GraphModelConfig(BaseModel):
     reasoning_mode: Literal["direct_score", "gnn", "hybrid"] = "direct_score"
     spatial_edge_features: list[str] = Field(
@@ -113,6 +139,8 @@ class GraphModelConfig(BaseModel):
     )
     edge_score_threshold: float = 0.55
     temporal_match_threshold: float = 0.30
+    direct_scorer: DirectScorerConfig = Field(default_factory=DirectScorerConfig)
+    gnn: GraphNeuralConfig = Field(default_factory=GraphNeuralConfig)
 
 
 class RuntimeConfig(BaseModel):

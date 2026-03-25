@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from apps.rest_app.frame_graph.pipeline import run_frame_graph_baseline
+from apps.rest_app.runners.model_sanity import run_gnn_sanity
 from mcmt_core.config.loader import load_runtime_config
 from mcmt_core.logging.setup import build_logger
 from mcmt_core.runtime.manifest import write_run_manifest
@@ -18,7 +19,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--pipeline",
         default="frame_graph_baseline",
-        choices=["frame_graph_baseline"],
+        choices=["frame_graph_baseline", "gnn_sanity"],
         help="Pipeline implementation to run for the current phase.",
     )
     return parser
@@ -34,6 +35,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.mode == "infer" and args.pipeline == "frame_graph_baseline":
         run_frame_graph_baseline(cfg, logger)
+        return 0
+    if args.pipeline == "gnn_sanity":
+        run_gnn_sanity(cfg, logger)
         return 0
 
     logger.info("This mode is scaffolded but not yet implemented in the current phase.")

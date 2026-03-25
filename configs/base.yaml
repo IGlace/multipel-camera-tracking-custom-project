@@ -84,3 +84,62 @@ graph_model:
     area_ratio_similarity: 0.10
   edge_score_threshold: 0.55
   temporal_match_threshold: 0.30
+  direct_scorer:
+    hidden_dims: [64, 32]
+    output_dim: 1
+    activation: relu
+    norm: none
+    dropout: 0.0
+    residual: false
+    activate_last: false
+  gnn:
+    aggregation: sum
+    hybrid_fusion_alpha: 0.5
+    node_encoder:
+      hidden_dims: [128]
+      output_dim: 64
+      activation: relu
+      norm: none
+      dropout: 0.0
+      residual: false
+      activate_last: false
+    edge_encoder:
+      hidden_dims: [64]
+      output_dim: 32
+      activation: relu
+      norm: none
+      dropout: 0.0
+      residual: false
+      activate_last: false
+    message_encoder:
+      hidden_dims: [128]
+      output_dim: 64
+      activation: relu
+      norm: none
+      dropout: 0.0
+      residual: false
+      activate_last: false
+    node_updater:
+      hidden_dims: [128]
+      output_dim: 64
+      activation: relu
+      norm: none
+      dropout: 0.0
+      residual: false
+      activate_last: false
+    edge_updater:
+      hidden_dims: [64]
+      output_dim: 32
+      activation: relu
+      norm: none
+      dropout: 0.0
+      residual: false
+      activate_last: false
+    predictor:
+      hidden_dims: [32]
+      output_dim: 1
+      activation: relu
+      norm: none
+      dropout: 0.0
+      residual: false
+      activate_last: false

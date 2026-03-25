@@ -18,6 +18,7 @@ Implemented foundation pieces:
 - first runnable `heuristic_app` frame-match baseline
 - first runnable `realtime_app` frame-runtime baseline for frame folders, a single video file, or a folder of videos
 - first runnable `realtime_app` tracklet-runtime baseline with Ultralytics local tracking and rolling tracklet summaries
+- configurable GNN scaffolding for `rest_app` with `direct_score`, `gnn`, and `hybrid` model builders
 - shared MOT, annotated frame, annotated video, live grid, and graph-debug sinks
 
 ## Planned top-level modules
@@ -36,6 +37,7 @@ This platform is designed to run through a single runtime entrypoint:
 
 ```bash
 python scripts/entrypoint.py rest -- --config configs/rest/base.yaml --mode infer
+python scripts/entrypoint.py rest -- --config configs/rest/base.yaml --mode infer --pipeline gnn_sanity
 python scripts/entrypoint.py heuristic -- --config configs/heuristic/base.yaml --mode infer
 python scripts/entrypoint.py realtime -- --config configs/realtime/base.yaml --mode infer
 python scripts/entrypoint.py trainer-reid-mgn -- --config configs/trainers/reid_mgn.yaml
