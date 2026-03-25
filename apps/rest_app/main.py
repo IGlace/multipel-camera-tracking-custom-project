@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from apps.rest_app.frame_graph.neural_pipeline import run_frame_graph_neural_inference
 from apps.rest_app.frame_graph.pipeline import run_frame_graph_baseline
 from apps.rest_app.runners.model_probe import run_graph_tensor_probe
 from apps.rest_app.runners.model_sanity import run_gnn_sanity
@@ -20,7 +21,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--pipeline",
         default="frame_graph_baseline",
-        choices=["frame_graph_baseline", "gnn_sanity", "graph_tensor_probe"],
+        choices=["frame_graph_baseline", "gnn_sanity", "graph_tensor_probe", "neural_edge_inference"],
         help="Pipeline implementation to run for the current phase.",
     )
     return parser
@@ -42,6 +43,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.pipeline == "graph_tensor_probe":
         run_graph_tensor_probe(cfg, logger)
+        return 0
+    if args.mode == "infer" and args.pipeline == "neural_edge_inference":
+        run_frame_graph_neural_inference(cfg, logger)
         return 0
 
     logger.info("This mode is scaffolded but not yet implemented in the current phase.")

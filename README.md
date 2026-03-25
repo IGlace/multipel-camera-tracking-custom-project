@@ -20,6 +20,7 @@ Implemented foundation pieces:
 - first runnable `realtime_app` tracklet-runtime baseline with Ultralytics local tracking and rolling tracklet summaries
 - configurable GNN scaffolding for `rest_app` with `direct_score`, `gnn`, and `hybrid` model builders
 - real graph-to-tensor conversion and `rest_app` neural probe pipeline over detected graphs
+- first experimental neural edge inference pipeline for `rest_app` using learned edge probabilities for clustering
 - shared MOT, annotated frame, annotated video, live grid, and graph-debug sinks
 
 ## Planned top-level modules
@@ -40,6 +41,7 @@ This platform is designed to run through a single runtime entrypoint:
 python scripts/entrypoint.py rest -- --config configs/rest/base.yaml --mode infer
 python scripts/entrypoint.py rest -- --config configs/rest/base.yaml --mode infer --pipeline gnn_sanity
 python scripts/entrypoint.py rest -- --config configs/rest/base.yaml --mode infer --pipeline graph_tensor_probe
+python scripts/entrypoint.py rest -- --config configs/rest/base.yaml --mode infer --pipeline neural_edge_inference
 python scripts/entrypoint.py heuristic -- --config configs/heuristic/base.yaml --mode infer
 python scripts/entrypoint.py realtime -- --config configs/realtime/base.yaml --mode infer
 python scripts/entrypoint.py trainer-reid-mgn -- --config configs/trainers/reid_mgn.yaml
