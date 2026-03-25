@@ -65,6 +65,12 @@ outputs:
 
 graph_model:
   reasoning_mode: direct_score
+  node_feature_components:
+    - center_x
+    - center_y
+    - area
+    - confidence
+    - class_id
   spatial_edge_features:
     - center_similarity
     - iou

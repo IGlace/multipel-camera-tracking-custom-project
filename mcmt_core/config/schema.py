@@ -111,6 +111,9 @@ class GraphNeuralConfig(BaseModel):
 
 class GraphModelConfig(BaseModel):
     reasoning_mode: Literal["direct_score", "gnn", "hybrid"] = "direct_score"
+    node_feature_components: list[str] = Field(
+        default_factory=lambda: ["center_x", "center_y", "area", "confidence", "class_id"]
+    )
     spatial_edge_features: list[str] = Field(
         default_factory=lambda: [
             "center_similarity",

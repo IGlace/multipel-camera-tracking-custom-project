@@ -1,4 +1,5 @@
 """Graph construction utilities package."""
+from .conversion import graph_to_tensor_batch
 from .direct_scorer import DirectEdgeScorer
 from .frame_graph import build_spatial_frame_graph
 from .message_passing import GraphReasoningNetwork
@@ -11,4 +12,5 @@ __all__ = [
     "HybridReasoningModel",
     "build_reasoning_module",
     "build_spatial_frame_graph",
+    "graph_to_tensor_batch",
 ]
