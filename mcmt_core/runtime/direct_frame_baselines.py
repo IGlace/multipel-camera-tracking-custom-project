@@ -11,6 +11,7 @@ from mcmt_core.features import EdgeFeatureBuilder, NodeRecord
 from mcmt_core.outputs import (
     AnnotatedFrameSink,
     AnnotatedVideoSink,
+    GraphDebugSink,
     LiveGridDisplaySink,
     MOTSink,
     OutputManager,
@@ -82,6 +83,8 @@ def build_output_manager(cfg: RuntimeConfig) -> OutputManager:
                 fullscreen=cfg.outputs.live_display_fullscreen,
             )
         )
+    if cfg.outputs.enable_graph_debug:
+        sinks.append(GraphDebugSink(subdir=cfg.outputs.graph_debug_subdir))
     return OutputManager(cfg.system.output_root, sinks)
 
 

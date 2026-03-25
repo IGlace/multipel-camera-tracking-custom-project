@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import cv2
 import numpy as np
@@ -23,8 +24,9 @@ class AnnotatedFrameSink(OutputSink):
         frame_index: int,
         images_by_camera: dict[str, np.ndarray],
         observations_by_camera: dict[str, list[TrackObservation]],
+        payload: dict[str, Any] | None = None,
     ) -> None:
-        del frame_index
+        del frame_index, payload
         base_dir = output_root / self.subdir
         base_dir.mkdir(parents=True, exist_ok=True)
         for camera_id, image in images_by_camera.items():

@@ -20,6 +20,7 @@ This baseline supports:
 - annotated frame export
 - optional annotated video export
 - optional live grid display
+- optional graph-debug figure export
 
 ## Current limitations
 - local tracker correction and retroactive reconciliation are not implemented yet

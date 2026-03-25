@@ -19,6 +19,7 @@ This baseline supports:
 - annotated frame export
 - optional annotated video export
 - optional live grid display
+- optional graph-debug figure export
 
 ## Why this baseline exists
 The V2 plan requires `realtime_app` to remain distinct from the research-oriented offline apps while still following the same overall reasoning for frame-mode operation. This baseline provides:

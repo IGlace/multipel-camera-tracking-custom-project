@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import cv2
 import numpy as np
@@ -35,8 +36,9 @@ class AnnotatedVideoSink(OutputSink):
         frame_index: int,
         images_by_camera: dict[str, np.ndarray],
         observations_by_camera: dict[str, list[TrackObservation]],
+        payload: dict[str, Any] | None = None,
     ) -> None:
-        del timestamp, frame_index
+        del timestamp, frame_index, payload
         for camera_id, image in images_by_camera.items():
             writer = self._writer_for_camera(output_root, camera_id, image.shape)
             annotated = annotate_frame(image, observations_by_camera.get(camera_id, []))

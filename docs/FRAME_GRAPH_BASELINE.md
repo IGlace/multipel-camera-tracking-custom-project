@@ -13,6 +13,8 @@ This baseline supports:
 - simple temporal ID carry-over through same-camera IoU matching against the previous frame clusters
 - MOT export
 - annotated frame export
+- optional annotated video export
+- optional graph-debug figure export
 
 ## Why this baseline exists
 The V2 plan requires a usable first pipeline before the full configurable GNN stack is implemented. This baseline provides:

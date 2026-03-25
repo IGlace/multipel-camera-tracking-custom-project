@@ -73,9 +73,11 @@ class OutputsConfig(BaseModel):
     enable_annotated_frames: bool = True
     enable_annotated_video: bool = False
     enable_live_display: bool = False
+    enable_graph_debug: bool = False
     mot_subdir: str = "mot"
     annotated_frames_subdir: str = "annotated_frames"
     annotated_video_subdir: str = "annotated_videos"
+    graph_debug_subdir: str = "graph_debug"
     live_display_window_name: str = "MCMT Live Grid"
     live_display_fullscreen: bool = True
     video_fps: int = 20

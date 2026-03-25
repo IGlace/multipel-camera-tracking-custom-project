@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 
@@ -29,8 +30,9 @@ class MOTSink(OutputSink):
         frame_index: int,
         images_by_camera: dict[str, np.ndarray],
         observations_by_camera: dict[str, list[TrackObservation]],
+        payload: dict[str, Any] | None = None,
     ) -> None:
-        del timestamp, images_by_camera
+        del timestamp, images_by_camera, payload
         for camera_id, observations in observations_by_camera.items():
             handle = self._file_for_camera(output_root, camera_id)
             for obs in observations:

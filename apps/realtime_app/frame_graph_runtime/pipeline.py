@@ -88,6 +88,7 @@ def run_realtime_frame_runtime_baseline(cfg: RuntimeConfig, logger, mode: str = 
                 frame_index=batch.frame_index,
                 images_by_camera=images_by_camera,
                 observations_by_camera=observations_by_camera,
+                payload={"graph": graph},
             )
             previous_clusters = current_states
             logger.info(

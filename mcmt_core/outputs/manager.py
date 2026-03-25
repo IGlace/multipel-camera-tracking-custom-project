@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 
@@ -22,6 +23,7 @@ class OutputManager:
         frame_index: int,
         images_by_camera: dict[str, np.ndarray],
         observations_by_camera: dict[str, list[TrackObservation]],
+        payload: dict[str, Any] | None = None,
     ) -> None:
         for sink in self.sinks:
             sink.write(
@@ -30,6 +32,7 @@ class OutputManager:
                 frame_index=frame_index,
                 images_by_camera=images_by_camera,
                 observations_by_camera=observations_by_camera,
+                payload=payload,
             )
 
     def close(self) -> None:

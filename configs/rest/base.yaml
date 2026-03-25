@@ -54,9 +54,11 @@ outputs:
   enable_annotated_frames: true
   enable_annotated_video: false
   enable_live_display: false
+  enable_graph_debug: false
   mot_subdir: mot
   annotated_frames_subdir: annotated_frames
   annotated_video_subdir: annotated_videos
+  graph_debug_subdir: graph_debug
   live_display_window_name: MCMT Live Grid
   live_display_fullscreen: true
   video_fps: 20

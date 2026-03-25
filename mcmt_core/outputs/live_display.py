@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
+from typing import Any
 
 import cv2
 import numpy as np
@@ -58,8 +59,9 @@ class LiveGridDisplaySink(OutputSink):
         frame_index: int,
         images_by_camera: dict[str, np.ndarray],
         observations_by_camera: dict[str, list[TrackObservation]],
+        payload: dict[str, Any] | None = None,
     ) -> None:
-        del output_root, timestamp, frame_index
+        del output_root, timestamp, frame_index, payload
         self._ensure_window()
         grid = self._compose_grid(images_by_camera, observations_by_camera)
         cv2.imshow(self.window_name, grid)

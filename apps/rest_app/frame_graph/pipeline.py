@@ -7,7 +7,7 @@ frame folders. It is intentionally simple and serves as the first runnable basel
 - build cross-camera edges and direct scores
 - cluster detections through score-thresholded connected components
 - propagate global IDs across consecutive frames with a simple same-camera IoU matcher
-- export MOT files, annotated frames, and optional annotated videos
+- export MOT files, annotated frames, optional annotated videos, and optional graph-debug images
 """
 
 from __future__ import annotations
@@ -77,6 +77,7 @@ def run_frame_graph_baseline(cfg: RuntimeConfig, logger) -> None:
                 frame_index=batch.frame_index,
                 images_by_camera=images_by_camera,
                 observations_by_camera=observations_by_camera,
+                payload={"graph": graph},
             )
             previous_clusters = current_states
             logger.info(

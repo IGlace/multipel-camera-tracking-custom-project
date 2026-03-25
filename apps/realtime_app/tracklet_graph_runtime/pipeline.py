@@ -13,7 +13,7 @@ from mcmt_core.features import EdgeFeatureBuilder
 from mcmt_core.graphs import build_spatial_frame_graph
 from mcmt_core.matching import ClusterState, LocalTrackObservation, UltralyticsLocalTracker, match_clusters
 from mcmt_core.outputs import TrackObservation
-from mcmt_core.runtime import build_output_manager, cluster_nodes_graph, to_observations
+from mcmt_core.runtime import build_output_manager, cluster_nodes_graph
 from mcmt_core.tracklets import SlidingWindowTrackletBuilder, TrackletRecord
 
 
@@ -121,6 +121,7 @@ def run_realtime_tracklet_runtime_baseline(cfg: RuntimeConfig, logger, mode: str
             frame_index=batch.frame_index,
             images_by_camera=images_by_camera,
             observations_by_camera=observations_by_camera,
+            payload={"graph": graph},
         )
         previous_clusters = current_states
         logger.info(

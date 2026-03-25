@@ -26,6 +26,10 @@ def _validate_runtime_config(cfg: RuntimeConfig) -> None:
         raise ValueError(
             "heuristic_app only supports graph_model.reasoning_mode='direct_score' because it does not use GNNs."
         )
+    if cfg.app_name == "heuristic_app" and cfg.outputs.enable_graph_debug:
+        raise ValueError(
+            "heuristic_app cannot enable outputs.enable_graph_debug because it does not construct graph objects."
+        )
 
 
 def load_runtime_config(path: str | Path, app_name: str) -> RuntimeConfig:
