@@ -12,64 +12,13 @@ frame folders. It is intentionally simple and serves as the first runnable basel
 
 from __future__ import annotations
 
-from collections.abc import Iterable
-
-import networkx as nx
-
 from mcmt_core.config.schema import RuntimeConfig
 from mcmt_core.datasets import MultiCameraFrameDataset
 from mcmt_core.detections import UltralyticsDetector
 from mcmt_core.features import EdgeFeatureBuilder, NodeFeatureBuilder, NodeRecord
 from mcmt_core.graphs import build_spatial_frame_graph
 from mcmt_core.matching import ClusterState, match_clusters
-from mcmt_core.outputs import AnnotatedFrameSink, AnnotatedVideoSink, MOTSink, OutputManager, TrackObservation
-
-
-def _cluster_nodes(graph: nx.Graph, threshold: float) -> list[list[NodeRecord]]:
-    pruned = nx.Graph()
-    pruned.add_nodes_from(graph.nodes(data=True))
-    for source_id, target_id, data in graph.edges(data=True):
-        if float(data.get("score", 0.0)) >= threshold:
-            pruned.add_edge(source_id, target_id, **data)
-    return [
-        [pruned.nodes[node_id]["node"] for node_id in component]
-        for component in nx.connected_components(pruned)
-    ]
-
-
-def _build_output_manager(cfg: RuntimeConfig) -> OutputManager:
-    sinks = []
-    if cfg.outputs.enable_mot:
-        sinks.append(MOTSink(subdir=cfg.outputs.mot_subdir))
-    if cfg.outputs.enable_annotated_frames:
-        sinks.append(AnnotatedFrameSink(subdir=cfg.outputs.annotated_frames_subdir))
-    if cfg.outputs.enable_annotated_video:
-        sinks.append(
-            AnnotatedVideoSink(
-                subdir=cfg.outputs.annotated_video_subdir,
-                fps=cfg.outputs.video_fps,
-            )
-        )
-    return OutputManager(cfg.system.output_root, sinks)
-
-
-def _to_observations(cluster_states: Iterable[ClusterState]) -> dict[str, list[TrackObservation]]:
-    observations: dict[str, list[TrackObservation]] = {}
-    for state in cluster_states:
-        for node in state.nodes:
-            observations.setdefault(node.camera_id, []).append(
-                TrackObservation(
-                    camera_id=node.camera_id,
-                    frame_index=node.frame_index,
-                    timestamp=node.timestamp,
-                    track_id=state.global_id,
-                    bbox_xyxy=node.bbox_xyxy,
-                    confidence=node.confidence,
-                    class_id=node.class_id,
-                    class_name=node.class_name,
-                )
-            )
-    return observations
+from mcmt_core.runtime import build_output_manager, cluster_nodes_graph, to_observations
 
 
 def run_frame_graph_baseline(cfg: RuntimeConfig, logger) -> None:
@@ -87,7 +36,7 @@ def run_frame_graph_baseline(cfg: RuntimeConfig, logger) -> None:
         selected_features=cfg.graph_model.spatial_edge_features,
         score_weights=cfg.graph_model.score_weights,
     )
-    output_manager = _build_output_manager(cfg)
+    output_manager = build_output_manager(cfg)
 
     previous_clusters: list[ClusterState] = []
     next_global_id = 1
@@ -115,14 +64,14 @@ def run_frame_graph_baseline(cfg: RuntimeConfig, logger) -> None:
                     )
 
             graph = build_spatial_frame_graph(nodes, edge_builder)
-            current_clusters = _cluster_nodes(graph, cfg.graph_model.edge_score_threshold)
+            current_clusters = cluster_nodes_graph(graph, cfg.graph_model.edge_score_threshold)
             current_states, next_global_id = match_clusters(
                 previous_clusters,
                 current_clusters,
                 cfg.graph_model.temporal_match_threshold,
                 next_global_id,
             )
-            observations_by_camera = _to_observations(current_states)
+            observations_by_camera = to_observations(current_states)
             output_manager.write(
                 timestamp=batch.timestamp,
                 frame_index=batch.frame_index,

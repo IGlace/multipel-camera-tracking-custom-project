@@ -16,7 +16,8 @@ Implemented foundation pieces:
 - experiment notebook layer bootstrap
 - first runnable `rest_app` frame-graph direct-score baseline
 - first runnable `heuristic_app` frame-match baseline
-- shared MOT, annotated frame, and annotated video sinks
+- first runnable `realtime_app` frame-runtime baseline for frame folders, a single video file, or a folder of videos
+- shared MOT, annotated frame, annotated video, and live grid sinks
 
 ## Planned top-level modules
 - `mcmt_core/`

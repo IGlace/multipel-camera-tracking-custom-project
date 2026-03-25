@@ -25,6 +25,7 @@ class DatasetConfig(BaseModel):
     root_dir: Path = Path("data")
     camera_dirs: list[str] = Field(default_factory=list)
     image_extensions: list[str] = Field(default_factory=lambda: [".jpg", ".jpeg", ".png", ".bmp", ".webp"])
+    video_extensions: list[str] = Field(default_factory=lambda: [".mp4", ".avi", ".mov", ".mkv", ".webm"])
     sync_strategy: Literal["min_length", "strict"] = "min_length"
 
 
@@ -65,9 +66,12 @@ class OutputsConfig(BaseModel):
     enable_mot: bool = True
     enable_annotated_frames: bool = True
     enable_annotated_video: bool = False
+    enable_live_display: bool = False
     mot_subdir: str = "mot"
     annotated_frames_subdir: str = "annotated_frames"
     annotated_video_subdir: str = "annotated_videos"
+    live_display_window_name: str = "MCMT Live Grid"
+    live_display_fullscreen: bool = True
     video_fps: int = 20
 
 
