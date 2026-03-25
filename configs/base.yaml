@@ -46,8 +46,11 @@ attributes:
 outputs:
   enable_mot: true
   enable_annotated_frames: true
+  enable_annotated_video: false
   mot_subdir: mot
   annotated_frames_subdir: annotated_frames
+  annotated_video_subdir: annotated_videos
+  video_fps: 20
 
 graph_model:
   reasoning_mode: direct_score

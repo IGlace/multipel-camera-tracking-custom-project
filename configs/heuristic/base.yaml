@@ -8,6 +8,13 @@ logging:
   log_to_file: true
   log_filename: heuristic_app.log
 
+dataset:
+  input_type: frame_folders
+  root_dir: data
+  camera_dirs: []
+  image_extensions: [".jpg", ".jpeg", ".png", ".bmp", ".webp"]
+  sync_strategy: min_length
+
 detector:
   backend: ultralytics
   model: yolo11n.pt
@@ -35,3 +42,29 @@ attributes:
   backend: person_attribute_recognition
   weights_path:
   attribute_names_path:
+
+outputs:
+  enable_mot: true
+  enable_annotated_frames: true
+  enable_annotated_video: false
+  mot_subdir: mot
+  annotated_frames_subdir: annotated_frames
+  annotated_video_subdir: annotated_videos
+  video_fps: 20
+
+graph_model:
+  reasoning_mode: direct_score
+  spatial_edge_features:
+    - center_similarity
+    - iou
+    - confidence_similarity
+    - class_match
+    - area_ratio_similarity
+  score_weights:
+    center_similarity: 0.35
+    iou: 0.35
+    confidence_similarity: 0.10
+    class_match: 0.10
+    area_ratio_similarity: 0.10
+  edge_score_threshold: 0.55
+  temporal_match_threshold: 0.30

@@ -64,8 +64,11 @@ class AttributesConfig(BaseModel):
 class OutputsConfig(BaseModel):
     enable_mot: bool = True
     enable_annotated_frames: bool = True
+    enable_annotated_video: bool = False
     mot_subdir: str = "mot"
     annotated_frames_subdir: str = "annotated_frames"
+    annotated_video_subdir: str = "annotated_videos"
+    video_fps: int = 20
 
 
 class GraphModelConfig(BaseModel):

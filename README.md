@@ -14,6 +14,9 @@ Implemented foundation pieces:
 - app and trainer entrypoint scaffolds
 - first typed interfaces for detector, segmentor, tracker, ReID, and attributes
 - experiment notebook layer bootstrap
+- first runnable `rest_app` frame-graph direct-score baseline
+- first runnable `heuristic_app` frame-match baseline
+- shared MOT, annotated frame, and annotated video sinks
 
 ## Planned top-level modules
 - `mcmt_core/`
@@ -30,9 +33,9 @@ Implemented foundation pieces:
 This platform is designed to run through a single runtime entrypoint:
 
 ```bash
-python scripts/entrypoint.py rest -- --config configs/rest/base.yaml
-python scripts/entrypoint.py heuristic -- --config configs/heuristic/base.yaml
-python scripts/entrypoint.py realtime -- --config configs/realtime/base.yaml
+python scripts/entrypoint.py rest -- --config configs/rest/base.yaml --mode infer
+python scripts/entrypoint.py heuristic -- --config configs/heuristic/base.yaml --mode infer
+python scripts/entrypoint.py realtime -- --config configs/realtime/base.yaml --mode infer
 python scripts/entrypoint.py trainer-reid-mgn -- --config configs/trainers/reid_mgn.yaml
 python scripts/entrypoint.py trainer-attributes -- --config configs/trainers/attributes.yaml
 ```
